@@ -1,0 +1,16 @@
+{
+  "name": "dl-dsh-nostr-pair",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Página pública de pareamento do acesso remoto do dsh (Nostr + túnel).",
+  "scripts": {
+    "build": "node build/pack.mjs",
+    "test": "node --test test/"
+  },
+  "devDependencies": {
+    "@noble/curves": "2.0.1",
+    "esbuild": "^0.25.0",
+    "nostr-tools": "2.26.1"
+  }
+}
