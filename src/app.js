@@ -382,7 +382,10 @@
       relays: relays,
       pubkey: device.pk,
       secretKey: hexToBytes(device.sk),
-      since: Math.floor(Date.now() / 1000) - 120,
+      // NIP-59 randomiza created_at em até 2 dias para trás (nip59 randomNow):
+      // um since de 120 s descarta pair.ok/tunnel.ready e o pareamento nunca
+      // conclui no celular. 2 dias cobrem o pior caso com folga.
+      since: Math.floor(Date.now() / 1000) - 2 * 86400,
       onRumor: handleRumor
     });
   }

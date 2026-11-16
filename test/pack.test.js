@@ -18,3 +18,13 @@ test('trata o fragmento do QR e os estados do fluxo', () => {
   }
   assert.ok(html.length > 60_000, 'o vendor do nostr-tools está embutido');
 });
+
+test('a subscription do dispositivo não corta as respostas do host', () => {
+  // NIP-59 randomiza created_at em até 2 dias para trás (nip59 randomNow):
+  // um `since` curto (120 s) descartava pair.ok/tunnel.ready e o pareamento
+  // nunca concluía no celular. A janela tem de cobrir o pior caso.
+  const m = html.match(/since:\s*Math\.floor\(Date\.now\(\)\s*\/\s*1e3\)\s*-\s*([0-9*\s]+)/);
+  assert.ok(m, 'não achei a expressão do since no artefato');
+  const janela = Number(eval(m[1]));
+  assert.ok(janela >= 86_400, `janela de ${janela}s é curta demais para o NIP-59`);
+});
